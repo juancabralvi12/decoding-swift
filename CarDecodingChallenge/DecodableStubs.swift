@@ -1,10 +1,7 @@
 import Foundation
 
-public struct NotImplementedError: Error {}
-
 extension Car: Decodable {
-    
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case carManufacturer = "car_manufacturer"
         case model = "car_model"
         case wikipediaLink = "wikipedia_link"
@@ -39,42 +36,50 @@ extension Currency: Decodable {
 }
 
 extension Price: Decodable {
-
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case value
         case currency
         case priceTimeStamp = "price_time_stamp"
     }
+
+    private static let priceTimeStampFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return formatter
+    }()
     
     public init(from decoder: Decoder) throws {
-        
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         value = try container.decode(Double.self, forKey: .value)
         currency = try container.decode(Currency.self, forKey: .currency)
-        let priceTimeStampString = try container.decodeIfPresent(String.self, forKey: .priceTimeStamp)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        if let priceTimeStampString {
-            priceTimeStamp =  dateFormatter.date(from: priceTimeStampString)
-        } else {
+
+        guard let priceTimeStampString = try container.decodeIfPresent(String.self, forKey: .priceTimeStamp) else {
             priceTimeStamp = nil
+            return
         }
+
+        guard let date = Self.priceTimeStampFormatter.date(from: priceTimeStampString) else {
+            throw DecodingError.dataCorruptedError(
+                forKey: .priceTimeStamp,
+                in: container,
+                debugDescription: "Expected date format yyyy-MM-dd'T'HH:mm:ss"
+            )
+        }
+
+        priceTimeStamp = date
     }
 }
 
 extension Address: Decodable {
-    
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case city
         case street
         case country
     }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -85,22 +90,13 @@ extension Address: Decodable {
 }
 
 extension Dealer: Decodable {
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
-        case city
-        case street
-        case country
     }
     
     public init(from decoder: Decoder) throws {
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
-        
-        let city = try container.decode(String.self, forKey: .city)
-        let street = try container.decode(String.self, forKey: .street)
-        let country = try container.decode(String.self, forKey: .country)
-        
-        address = Address(city: city, street: street, country: country)
+        address = try Address(from: decoder)
     }
 }
