@@ -74,28 +74,18 @@ extension Price: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         value = try container.decode(Double.self, forKey: .value)
-        let currencyString = try container.decode(String.self, forKey: .currency)
+        currency = try container.decode(Currency.self, forKey: .currency)
         let priceTimeStampString = try container.decodeIfPresent(String.self, forKey: .priceTimeStamp)
         
-        let RFC3339DateFormatter = DateFormatter()
-        RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         if let priceTimeStampString {
-            priceTimeStamp =  RFC3339DateFormatter.date(from: priceTimeStampString)
+            priceTimeStamp =  dateFormatter.date(from: priceTimeStampString)
         } else {
             priceTimeStamp = nil
-        }
-        
-        
-        
-        if currencyString == "USD" {
-            currency = .dollar
-        } else if currencyString == "EUR" {
-            currency = .euro
-        } else {
-            currency = .unknown
         }
     }
 }

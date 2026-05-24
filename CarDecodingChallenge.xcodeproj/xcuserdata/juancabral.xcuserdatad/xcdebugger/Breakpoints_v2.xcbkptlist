@@ -14,9 +14,9 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "Dealer"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "Address"
             landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,10 +30,10 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "CodingKeys"
-            landmarkType = "13">
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "Dealer"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,10 +46,10 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "CodingKeys"
-            landmarkType = "13">
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "Dealer"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,10 +62,10 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "Address"
-            landmarkType = "21">
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "init(from:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,10 +78,10 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "CodingKeys"
-            landmarkType = "13">
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "Dealer"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,10 +94,10 @@
             filePath = "CarDecodingChallenge/DecodableStubs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "Dealer"
-            landmarkType = "21">
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "init(from:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
