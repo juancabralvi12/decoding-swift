@@ -35,7 +35,17 @@ extension Car: Decodable {
 
 extension Currency: Decodable {
     public init(from decoder: Decoder) throws {
-        throw NotImplementedError()
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(String.self)
+        
+        switch value {
+        case "USD":
+            self = .dollar
+        case "EUR":
+            self = .euro
+        default:
+            self = .unknown
+        }
     }
 }
 
@@ -65,16 +75,19 @@ extension Price: Decodable {
         
         value = try container.decode(Double.self, forKey: .value)
         let currencyString = try container.decode(String.self, forKey: .currency)
-        guard let priceTimeStampString = try container.decodeIfPresent(String.self, forKey: .priceTimeStamp) else {
-            throw NSError(domain: "", code: 500)
-        }
+        let priceTimeStampString = try container.decodeIfPresent(String.self, forKey: .priceTimeStamp)
         
         let RFC3339DateFormatter = DateFormatter()
         RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
         RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
-        priceTimeStamp = RFC3339DateFormatter.date(from: priceTimeStampString)
+        if let priceTimeStampString {
+            priceTimeStamp =  RFC3339DateFormatter.date(from: priceTimeStampString)
+        } else {
+            priceTimeStamp = nil
+        }
+        
         
         
         if currencyString == "USD" {
