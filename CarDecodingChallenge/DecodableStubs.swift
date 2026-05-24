@@ -4,17 +4,6 @@ public struct NotImplementedError: Error {}
 
 extension Car: Decodable {
     
-    /*
-     public let carManufacturer: String
-     public let model: String
-     public let wikipediaLink: URL?
-     public let prices: [Price]
-     public let dealers: [Dealer]
-     
-     */
-    
-    
-    
     enum CodingKeys: String, CodingKey {
         case carManufacturer = "car_manufacturer"
         case model = "car_model"
@@ -50,17 +39,6 @@ extension Currency: Decodable {
 }
 
 extension Price: Decodable {
-    
-    /*
-     - Decode `Price` from a JSON object.
-     - `value` is required and must decode to `Double`.
-     - `currency` is required and must decode to `Currency`.
-     - Missing or `null` `value`/`currency` must fail decoding.
-     - `price_time_stamp` maps to `priceTimeStamp`.
-     - `priceTimeStamp` may be missing or `null`; decode those cases as `nil`.
-     - For non-null timestamps, use `DateFormatter` with locale `en_US_POSIX`, time zone `TimeZone(secondsFromGMT: 0)`, and the format implied by the examples: `yyyy-MM-dd'T'HH:mm:ss`.
-     
-     */
 
     enum CodingKeys: String, CodingKey {
         case value
@@ -107,8 +85,6 @@ extension Address: Decodable {
 }
 
 extension Dealer: Decodable {
-    
-    
     enum CodingKeys: String, CodingKey {
         case name
         case city
